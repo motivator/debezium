@@ -633,6 +633,15 @@ public class MySqlConnectorConfig {
                                                                       + "of the snapshot; in such cases set this property to 'false'.")
                                                               .withDefault(true);
 
+    public static final Field SNAPSHOT_WAIT_TIMEOUT_S = Field.create("snapshot.wait_timeout.s")
+                                                           .withDisplayName("Wait Timeout (s) (During Snapshot)")
+                                                           .withType(Type.INT)
+                                                           .withWidth(Width.SHORT)
+                                                           .withImportance(Importance.MEDIUM)
+                                                           .withDescription("Set wait_timeout in seconds on snapshot transaction session for servers with wait_timeout set too low for this process to complete successfully.")
+                                                           .withDefault(28800)
+                                                           .withValidation(Field::isPositiveInteger);
+
     public static final Field TIME_PRECISION_MODE = Field.create("time.precision.mode")
                                                          .withDisplayName("Time Precision")
                                                          .withEnum(TemporalPrecisionMode.class, TemporalPrecisionMode.ADAPTIVE)

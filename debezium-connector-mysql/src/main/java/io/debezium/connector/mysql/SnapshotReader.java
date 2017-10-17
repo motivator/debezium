@@ -173,6 +173,17 @@ public class SnapshotReader extends AbstractReader {
 
             try {
                 // ------------------------------------
+                // SET wait_timeout
+                // ------------------------------------
+                // Allow setting a session wait_timeout for servers with the wait_timeout set to something
+                // too low for this snapshot process. The default is 20000 seconds.
+                if (!isRunning()) return;
+                long waitTimeoutInSeconds = context.waitTimeoutInSeconds();
+                logger.info("Step 0.9: set wait_timeout to {} for snapshot transaction session", waitTimeoutInSeconds);
+                sql.set("SET wait_timeout=" + waitTimeoutInSeconds);
+                mysql.execute(sql.get());
+
+                // ------------------------------------
                 // LOCK TABLES
                 // ------------------------------------
                 // Obtain read lock on all tables. This statement closes all open tables and locks all tables

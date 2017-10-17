@@ -152,6 +152,10 @@ public final class MySqlTaskContext extends MySqlJdbcContext {
         return config.getLong(MySqlConnectorConfig.CONNECTION_TIMEOUT_MS);
     }
 
+    public long waitTimeoutInSeconds() {
+        return config.getLong(MySqlConnectorConfig.SNAPSHOT_WAIT_TIMEOUT_S);
+    }
+
     public long pollIntervalInMillseconds() {
         return config.getLong(MySqlConnectorConfig.POLL_INTERVAL_MS);
     }
